@@ -5,7 +5,11 @@ export class GridItem {
   sprites = ["🌲", "🌳", "🌴"];
 
   constructor(sprite) {
-    this.sprite = this.sprites[getRandomInt(this.sprites.length)];
+    if (!sprite) {
+      this.sprite = this.sprites[getRandomInt(this.sprites.length)];
+    } else {
+      this.sprite = sprite;
+    }
   }
 
   getSprite() {
