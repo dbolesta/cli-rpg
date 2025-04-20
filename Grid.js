@@ -10,11 +10,20 @@ class Grid {
 
   start() {
     console.log(`Creating Grid ${this.w} x ${this.h}`);
-    let spaceOne = new GridItem();
-    let spaceTwo = new GridItem();
-    let spaceThree = new  GridItem();
-
-    console.log(spaceOne.getSprite(), spaceTwo.getSprite(), spaceThree.getSprite());
+    this.renderGrid();
   }
+
+  renderGrid() {
+    let gridText = '';
+    for (let x = 0; x <= this.w; x++) {
+      for(let y = 0; y <= this.h; y++) {
+        gridText += new GridItem().getSprite();
+      }
+      gridText += '\n';
+    }
+    console.log(gridText);
+  }
+
+
 }
-const grid = new Grid(10, 10);
+const grid = new Grid(10, 20);
