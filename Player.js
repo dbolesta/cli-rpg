@@ -20,4 +20,8 @@ export class Player {
     getSprite() {
       return this.sprite;
     }
+
+    getStats() {
+      return this.#stats;
+    }
 }

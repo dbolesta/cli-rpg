@@ -1,5 +1,6 @@
 import { GridItem } from "./GridItem.js";
 import { Player } from "./Player.js";
+import { promptPlayerForDirection } from "./playerPrompts.js";
 
 class Grid {
   constructor(w, h) {
@@ -7,6 +8,8 @@ class Grid {
     this.h = h;
     this.grid = [];
     this.player = new Player("Cool Dude", {hp: 5, atk: 5, def: 6});
+
+    console.log("get stats: ", this.player.getStats());
 
     for (let x = 0; x <= this.w; x++) {
       let thisRow = [];
@@ -21,15 +24,19 @@ class Grid {
     this.start();
   }
 
-  start() {
+  async start() {
     console.log(`Creating Grid ${this.w} x ${this.h}`);
-    this.logGrid();
+    while(this.player.getStats().hp > 0){
+      this.logGrid();
+      const response = await promptPlayerForDirection();
+
+      console.log(response);
+    }
   }
 
   
 
   logGrid() {
-
     this.grid[this.player.getPosition().x][this.player.getPosition().y] = this.player;
 
     let gridText = '';
@@ -40,13 +47,8 @@ class Grid {
       gridText += '\n';
     }
 
-    console.log(this.player.getPosition());
-    // this.grid[this.player.getPosition().x][this.player.getPosition().y] = this.player.sprite;
-
-    console.log(this.grid);
-
-
     console.log(gridText);
+
   }
 
 
