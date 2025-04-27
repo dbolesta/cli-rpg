@@ -25,10 +25,45 @@ class Grid {
   }
 
   async start() {
-    console.log(`Creating Grid ${this.w} x ${this.h}`);
     while(this.player.getStats().hp > 0){
+      
       this.logGrid();
       const response = await promptPlayerForDirection();
+      console.clear();
+      switch (response) {
+        case "Up":
+          if (this.player.x > 0) {
+            this.grid[this.player.x][this.player.y] = new GridItem(null, true);
+            this.player.x--;
+          } else {
+            console.log("You can't go that way.");
+          }
+          break;
+        case "Down":
+          if (this.player.x < this.w) {
+            this.grid[this.player.x][this.player.y] = new GridItem(null, true);
+            this.player.x++;
+          } else {
+            console.log("You can't go that way.");
+          }
+          break;
+        case "Left":
+          if (this.player.y > 0) {
+            this.grid[this.player.x][this.player.y] = new GridItem(null, true);
+            this.player.y--;
+          } else {
+            console.log("You can't go that way.");
+          }
+          break;
+        case "Right":
+          if (this.player.y < this.h) {
+            this.grid[this.player.x][this.player.y] = new GridItem(null, true);
+            this.player.y++;
+          } else {
+            console.log("You can't go that way.");
+          }
+          break;
+      }
 
       console.log(response);
     }

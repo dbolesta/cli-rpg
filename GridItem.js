@@ -4,15 +4,24 @@ export class GridItem {
 
   sprites = ["🌲", "🌳", "🌴"];
 
-  constructor(sprite) {
+  constructor(sprite, visited = false) {
     if (!sprite) {
       this.sprite = this.sprites[getRandomInt(this.sprites.length)];
     } else {
       this.sprite = sprite;
     }
+    this.visited = visited;
   }
 
   getSprite() {
-    return this.sprite;
+    if (!this.visited){
+      return this.sprite;
+    } else {
+      return "👣";
+    }
+  }
+
+  setVisited(hasBeenVisited = true) {
+    this.visited = hasBeenVisited;
   }
 }
