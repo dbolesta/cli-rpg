@@ -1,3 +1,4 @@
+import { EnemyItem } from "./EnemyItem.js";
 import { GridItem } from "./GridItem.js";
 import { ItemItem } from "./ItemItem.js";
 import { Player } from "./Player.js";
@@ -8,7 +9,7 @@ class Grid {
     this.w = w;
     this.h = h;
     this.grid = [];
-    this.player = new Player("Cool Dude", {hp: 5, atk: 5, def: 6});
+    this.player = new Player("Cool Dude", {hp: 1, atk: 5, def: 6});
 
     // construct initial grid
     for (let x = 0; x <= this.w; x++) {
@@ -33,6 +34,8 @@ class Grid {
     let randNum = Math.random();
     if (randNum < 0.2) {
       return new ItemItem();
+    } else if (randNum >= 0.2 && randNum < 0.4) {
+      return new EnemyItem();
     } else {
       return new GridItem()
     }
@@ -49,7 +52,6 @@ class Grid {
         const response = await promptPlayerForDirection();
         console.clear();
         this.performAction(response);
-        console.log(response);
       }
     } catch (err) {
       if (err.name === "ExitPromptError") {
@@ -108,9 +110,15 @@ class Grid {
     if (response.type === 'item') {
       this.player.updateHp(response.hp);
       console.log(`Player hp is now ${this.player.getStats().hp}`);
-    } else if ()
+    } else if (response.type === 'enemy') {
+      this.player.updateHp(response.hp);
+      console.log(`Player hp is now ${this.player.getStats().hp}`);
+    }
 
-    
+    if (this.player.getStats().hp === 0) {
+      this.logGrid();
+      console.log("The monkey has perished");
+    }
 
 
   }

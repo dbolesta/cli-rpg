@@ -1,6 +1,6 @@
 import { GridItem } from "./GridItem.js";
 
-export class ItemItem extends GridItem {
+export class EnemyItem extends GridItem {
 
   #stats = {
     hp: 0,
@@ -8,19 +8,19 @@ export class ItemItem extends GridItem {
     def: 0,
   }
 
-  type = 'item';
+  type = 'enemy';
 
   constructor(sprite, visited){
     super(sprite, visited);
 
-    // this.sprite = '🛡️';
+    // this.sprite = '🕷️';
   }
 
   gridAction(){
     const returnPackage = {
       type: this.type,
-      message: 'You found a sheild 🛡️ ! Your hp has increased.',
-      hp: 1
+      message: 'You fight a spider 🕷️ ! You squash it, but not before it takes 1 hp.',
+      hp: -1
     }
 
     return returnPackage;    

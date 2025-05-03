@@ -18,7 +18,11 @@ export class Player {
       return {x: this.x, y: this.y};
     }
     getSprite() {
-      return this.sprite;
+      if (this.#stats.hp > 0){
+        return this.sprite;
+      } else {
+        return "💀";
+      }
     }
 
     updateHp(hp) {
