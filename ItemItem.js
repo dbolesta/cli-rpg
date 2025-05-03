@@ -6,11 +6,23 @@ export class ItemItem extends GridItem {
     hp: 0,
     atk: 0,
     def: 0,
-}
+  }
+
+  type = 'item';
 
   constructor(sprite, visited){
     super(sprite, visited);
 
-    this.sprite = '🎁';
+    this.sprite = '🪖';
+  }
+
+  gridAction(){
+    const returnPackage = {
+      type: this.type,
+      message: 'You found a sheild! Your hp has increased.',
+      hp: 1
+    }
+
+    return returnPackage;    
   }
 }

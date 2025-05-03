@@ -4,6 +4,7 @@ export class GridItem {
 
   sprites = ["🌲", "🌳", "🌴"];
   messages = ["Lots of brush.", "The forest is dense here.", "You hear animals of all kinds", "You almost tripped on a root.", "A vine tickles your ankle."];
+  type = 'normal';
 
   constructor(sprite, visited = false) {
     if (!sprite) {
@@ -23,11 +24,13 @@ export class GridItem {
   }
 
   gridAction(){
-    if (this.visited) {
-      return "Look's familiar";
-    } else {
-      return this.messages[getRandomInt(this.messages.length)];
+    const returnPackage = {
+      type: this.type,
+      message: this.visited ? 'Looks familiar.' : this.messages[getRandomInt(this.messages.length)],
+      hp: null
     }
+
+    return returnPackage;    
   }
 
   setVisited(hasBeenVisited = true) {

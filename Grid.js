@@ -100,7 +100,17 @@ class Grid {
 
     this.player.x = newX;
     this.player.y = newY;
-    console.log(this.grid[this.player.x][this.player.y].gridAction());
+
+    const response = this.grid[this.player.x][this.player.y].gridAction();
+
+    console.log(response.message);
+
+    if (response.type === 'item') {
+      this.player.updateHp(response.hp);
+      console.log(`Player hp is now ${this.player.getStats().hp}`);
+    } else if ()
+
+    
 
 
   }

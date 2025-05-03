@@ -21,6 +21,10 @@ export class Player {
       return this.sprite;
     }
 
+    updateHp(hp) {
+      this.#stats.hp += hp;
+    }
+
     getStats() {
       return this.#stats;
     }
