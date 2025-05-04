@@ -1,6 +1,7 @@
 import { EnemyItem } from "./EnemyItem.js";
 import { GridItem } from "./GridItem.js";
 import { ItemItem } from "./ItemItem.js";
+import { StarItem } from "./StarItem.js";
 import { Player } from "./Player.js";
 import { promptPlayerForDirection } from "./playerPrompts.js";
 
@@ -10,12 +11,13 @@ class Grid {
     this.h = h;
     this.grid = [];
     this.player = new Player("Cool Dude", {hp: 1, atk: 5, def: 6});
+    this.win = false;
 
     // construct initial grid
     for (let x = 0; x <= this.w; x++) {
       let thisRow = [];
       for(let y = 0; y <= this.h; y++) {
-        let item = this.chooseItem();
+        let item = this.chooseItem(x, y);
         // thisRow.push(new GridItem());
         thisRow.push(item);
       }
@@ -30,8 +32,12 @@ class Grid {
     this.start();
   }
 
-  chooseItem() {
+  chooseItem(x, y) {
     let randNum = Math.random();
+    if (x === 0 && y === this.h){
+      return new StarItem();
+    }
+
     if (randNum < 0.2) {
       return new ItemItem();
     } else if (randNum >= 0.2 && randNum < 0.4) {
@@ -47,7 +53,7 @@ class Grid {
 
     try {
       // main loop start
-      while(this.player.getStats().hp > 0){
+      while(this.player.getStats().hp > 0 && !this.win){
         this.logGrid();
         const response = await promptPlayerForDirection();
         console.clear();
@@ -113,6 +119,9 @@ class Grid {
     } else if (response.type === 'enemy') {
       this.player.updateHp(response.hp);
       console.log(`Player hp is now ${this.player.getStats().hp}`);
+    } else if (response.type === 'star') {
+      this.logGrid();
+      this.win = true;
     }
 
     if (this.player.getStats().hp === 0) {
